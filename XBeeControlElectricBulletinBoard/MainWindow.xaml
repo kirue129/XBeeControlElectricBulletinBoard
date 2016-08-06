@@ -5,8 +5,39 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:XBeeControlElectricBulletinBoard"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
+        Title="電光掲示板コンソール" FontFamily="Meiryo UI" Height="606" Width="839" Background="#FF323232" Foreground="#FFE6E6E6" Loaded="Window_Loaded" >
+    <Grid Background="#FF323232">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <TextBox x:Name="m_tbOutputText" Height="32" Margin="34,134,257,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="18" Text="Please enter the text..." Foreground="#FFE6E6E6" Background="#FF02344D" BorderBrush="#FF3399FF" Width="540"/>
+        <Label x:Name="m_lbOutputText" Content="送信テキスト" HorizontalAlignment="Left" Margin="24,104,0,0" VerticalAlignment="Top" Foreground="#FFE6E6E6" Width="79" Height="25"/>
+        <Button x:Name="m_btnSend" Content="送信" Margin="631,134,0,0" VerticalAlignment="Top" FontSize="16" Height="32" BorderBrush="#FF00B4EA" Background="#FF02344D" Foreground="#FFE6E6E6" Width="120" HorizontalAlignment="Left" Click="m_btnSend_Click"/>
+        <Button x:Name="m_btnClean" Content="クリア" HorizontalAlignment="Left" Margin="34,201,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="-0.247,-0.839" Height="32" BorderBrush="#FF00B4EA" Background="#FF02344D" Foreground="#FFE6E6E6" FontSize="16" Click="m_btnClean_Click"/>
+        <Button x:Name="m_btnTest" Content="動作テスト" Margin="259,201,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.247,-0.839" Height="32" BorderBrush="#FF00B4EA" Background="#FF02344D" Foreground="#FFE6E6E6" Width="120" FontSize="16" HorizontalAlignment="Left" Click="m_btnTest_Click"/>
+        <Button x:Name="m_btnTime" Content="現在時間" Margin="478,201,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.247,-0.839" Height="32" BorderBrush="#FF00B4EA" Background="#FF02344D" Foreground="#FFE6E6E6" Width="120" FontSize="16" HorizontalAlignment="Left" Click="m_btnTime_Click"/>
+        <Label x:Name="m_lbDelay" Content="遅延時間" HorizontalAlignment="Left" Margin="24,249,0,0" VerticalAlignment="Top" Foreground="#FFE6E6E6" Width="63" Height="25"/>
+        <Label x:Name="m_lbBrightness" Content="明るさ" HorizontalAlignment="Left" Margin="24,310,0,0" VerticalAlignment="Top" Foreground="#FFE6E6E6" Width="72" Height="25"/>
+        <Button x:Name="m_btnReset" Content="リセット" Margin="631,303,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.247,-0.839" Height="32" BorderBrush="#FF00B4EA" Background="#FF02344D" Foreground="#FFE6E6E6" Width="120" FontSize="16" HorizontalAlignment="Left" Click="m_btnReset_Click"/>
+        <ListView x:Name="m_listLog" Height="145" Margin="34,399,0,0" ItemsSource="{Binding}" VerticalAlignment="Top" BorderBrush="#FF00B4EA" Background="#FF02344D" Foreground="#FFE6E6E6" HorizontalAlignment="Left" Width="756">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn  DisplayMemberBinding="{Binding Status}" Header="状態" Width="80"/>
+                    <GridViewColumn  DisplayMemberBinding="{Binding Operation}" Header="操作" Width="80"/>
+                    <GridViewColumn  DisplayMemberBinding="{Binding Content}" Header="内容" Width="405"/>
+                    <GridViewColumn  DisplayMemberBinding="{Binding Time}" Header="時間" Width="180"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Label x:Name="m_lbLog" Content="動作ログ" HorizontalAlignment="Left" Margin="24,369,0,0" VerticalAlignment="Top" Foreground="#FFE6E6E6" Width="63" Height="25"/>
+        <ComboBox x:Name="m_cbCOMPort" HorizontalAlignment="Left" Margin="34,44,0,0" VerticalAlignment="Top" Width="180" Height="32" BorderBrush="#FF3399FF" Background="#FF02344D" Foreground="#FF505050" FontSize="16" SelectionChanged="m_cbCOMPort_SelectionChanged"/>
+        <ComboBox x:Name="m_cbBaudRate" HorizontalAlignment="Left" Margin="259,44,0,0" VerticalAlignment="Top" Width="180" Height="32" BorderBrush="#FF3399FF" Background="#FF02344D" Foreground="#FF505050" FontSize="16" SelectionChanged="m_cbBaudRate_SelectionChanged"/>
+        <Label x:Name="m_lbCOMPort" Content="COM Port" HorizontalAlignment="Left" Margin="24,14,0,0" VerticalAlignment="Top" Foreground="#FFE6E6E6" Width="79" Height="25"/>
+        <Label x:Name="m_lbTransfarRate" Content="転送速度" HorizontalAlignment="Left" Margin="249,14,0,0" VerticalAlignment="Top" Foreground="#FFE6E6E6" Width="79" Height="25"/>
+        <ScrollBar x:Name="m_scrDelay" HorizontalAlignment="Left" Margin="34,274,0,0" VerticalAlignment="Top" Width="540" Orientation="Horizontal" Height="18" Background="#FF02344D" BorderBrush="#FF3399FF" Foreground="#FFE6E6E6" LargeChange="10" SmallChange="10" Maximum="200" Minimum="10" Value="100" ValueChanged="m_scrDelay_ValueChanged"/>
+        <ScrollBar x:Name="m_scrBrightness" HorizontalAlignment="Left" Margin="34,340,0,0" VerticalAlignment="Top" Width="540" Orientation="Horizontal" Height="18" Background="#FF02344D" BorderBrush="#FF3399FF" Foreground="#FFE6E6E6" SmallChange="1" Maximum="15" Minimum="1" Value="5" ValueChanged="m_scrBrightness_ValueChanged"/>
+        <Button x:Name="m_btnStart" Content="開始" Margin="478,44,0,0" VerticalAlignment="Top" FontSize="16" Height="32" BorderBrush="#FF00B4EA" Background="#FF02344D" Foreground="#FFE6E6E6" Width="120" HorizontalAlignment="Left" Click="m_btnStart_Click"/>
+        <Button x:Name="m_btnStop" Content="停止" Margin="631,44,0,0" VerticalAlignment="Top" FontSize="16" Height="32" BorderBrush="#FF00B4EA" Background="#FF02344D" Foreground="#FFE6E6E6" Width="120" HorizontalAlignment="Left" Click="m_btnStop_Click"/>
     </Grid>
+
 </Window>
