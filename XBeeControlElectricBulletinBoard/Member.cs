@@ -11,6 +11,7 @@ namespace XBeeControlElectricBulletinBoard
         public string Status { get; set; }
         public string Operation { get; set; }
         public string Content { get; set; }
+        public string Result { get; set; }
         public string Time { get; set; }
     }
 }

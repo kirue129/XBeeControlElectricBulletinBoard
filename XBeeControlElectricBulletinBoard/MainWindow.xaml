@@ -19,15 +19,86 @@
         <Label x:Name="m_lbDelay" Content="遅延時間" HorizontalAlignment="Left" Margin="24,249,0,0" VerticalAlignment="Top" Foreground="#FFE6E6E6" Width="63" Height="25"/>
         <Label x:Name="m_lbBrightness" Content="明るさ" HorizontalAlignment="Left" Margin="24,310,0,0" VerticalAlignment="Top" Foreground="#FFE6E6E6" Width="72" Height="25"/>
         <Button x:Name="m_btnReset" Content="リセット" Margin="631,303,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.247,-0.839" Height="32" BorderBrush="#FF00B4EA" Background="#FF02344D" Foreground="#FFE6E6E6" Width="120" FontSize="16" HorizontalAlignment="Left" Click="m_btnReset_Click"/>
-        <ListView x:Name="m_listLog" Height="145" Margin="34,399,0,0" ItemsSource="{Binding}" VerticalAlignment="Top" BorderBrush="#FF00B4EA" Background="#FF02344D" Foreground="#FFE6E6E6" HorizontalAlignment="Left" Width="756">
+        <ListView x:Name="m_listLog" Height="145" Margin="34,399,41,0" ItemsSource="{Binding}" VerticalAlignment="Top" AlternationCount="2" Grid.Row="1" Grid.ColumnSpan="2" BorderBrush="#FF00B4EA" Background="#FF02344D" Foreground="#FFE6E6E6">
             <ListView.View>
                 <GridView>
                     <GridViewColumn  DisplayMemberBinding="{Binding Status}" Header="状態" Width="80"/>
                     <GridViewColumn  DisplayMemberBinding="{Binding Operation}" Header="操作" Width="80"/>
-                    <GridViewColumn  DisplayMemberBinding="{Binding Content}" Header="内容" Width="405"/>
+                    <GridViewColumn  DisplayMemberBinding="{Binding Content}" Header="内容" Width="318"/>
+                    <GridViewColumn  DisplayMemberBinding="{Binding Result}" Header="結果" Width="80"/>
                     <GridViewColumn  DisplayMemberBinding="{Binding Time}" Header="時間" Width="180"/>
                 </GridView>
             </ListView.View>
+            <ListView.Resources>
+                <Style x:Key="{x:Type GridViewColumnHeader}" TargetType="{x:Type GridViewColumnHeader}">
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <!--列ヘッダの背景色をグラデーションさせる-->
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,0">
+                                <LinearGradientBrush.GradientStops>
+                                    <GradientStop Color="#FF02344D" Offset="0"/>
+                                    <GradientStop Color="#FF02344D" Offset="1"/>
+                                    <GradientStop Color="#FF02344D" Offset="2"/>
+                                </LinearGradientBrush.GradientStops>
+                            </LinearGradientBrush>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="Foreground">
+                        <Setter.Value>
+                            <!--列ヘッダの背景色をグラデーションさせる-->
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,0">
+                                <LinearGradientBrush.GradientStops>
+                                    <GradientStop Color="#FFE6E6E6" Offset="0"/>
+                                    <GradientStop Color="#FFE6E6E6" Offset="1"/>
+                                    <GradientStop Color="#FFE6E6E6" Offset="2"/>
+                                </LinearGradientBrush.GradientStops>
+                            </LinearGradientBrush>
+                        </Setter.Value>
+                    </Setter>
+                    <!--<Setter Property="">
+                        <Setter.Value>
+                            
+                    列ヘッダの背景色をグラデーションさせる
+                    
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,0">
+                                <LinearGradientBrush.GradientStops>
+                                    <GradientStop Color="#FFD2D2D2" Offset="0"/>
+                                    <GradientStop Color="#FFD2D2D2" Offset="1"/>
+                                    <GradientStop Color="#FFD2D2D2" Offset="2"/>
+                                </LinearGradientBrush.GradientStops>
+                            </LinearGradientBrush>
+                        </Setter.Value>
+                    </Setter>-->
+                </Style>
+            </ListView.Resources>
+            <ListView.ItemContainerStyle>
+                <!-- スタイル定義の開始 -->
+                <Style TargetType="{x:Type ListViewItem}">
+                    <!-- トリガーによるスタイル定義 -->
+                    <Style.Triggers>
+                        <!-- 奇数行の背景色 -->
+                        <!--
+                        <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+                            <Setter Property="Background" Value="Lavender"/>
+                        </Trigger>
+                        -->
+                        <!-- 偶数行の背景色 -->
+                        <!--
+                        <Trigger Property="ItemsControl.AlternationIndex" Value="1">
+                            <Setter Property="Background" Value="WhiteSmoke" />
+                        </Trigger>-->
+                        <!-- 選択行の背景色 -->
+                        <Trigger Property="IsSelected" Value="True" >
+                            <Setter Property="Background" 
+                        Value="#FF00B4EA" />
+                        </Trigger>
+                        <Trigger Property="IsKeyboardFocusWithin" Value="True" >
+                            <Setter Property="Background" 
+                        Value="#FF00B4EA" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.ItemContainerStyle>
         </ListView>
         <Label x:Name="m_lbLog" Content="動作ログ" HorizontalAlignment="Left" Margin="24,369,0,0" VerticalAlignment="Top" Foreground="#FFE6E6E6" Width="63" Height="25"/>
         <ComboBox x:Name="m_cbCOMPort" HorizontalAlignment="Left" Margin="34,44,0,0" VerticalAlignment="Top" Width="180" Height="32" BorderBrush="#FF3399FF" Background="#FF02344D" Foreground="#FF505050" FontSize="16" SelectionChanged="m_cbCOMPort_SelectionChanged"/>
@@ -39,5 +110,4 @@
         <Button x:Name="m_btnStart" Content="開始" Margin="478,44,0,0" VerticalAlignment="Top" FontSize="16" Height="32" BorderBrush="#FF00B4EA" Background="#FF02344D" Foreground="#FFE6E6E6" Width="120" HorizontalAlignment="Left" Click="m_btnStart_Click"/>
         <Button x:Name="m_btnStop" Content="停止" Margin="631,44,0,0" VerticalAlignment="Top" FontSize="16" Height="32" BorderBrush="#FF00B4EA" Background="#FF02344D" Foreground="#FFE6E6E6" Width="120" HorizontalAlignment="Left" Click="m_btnStop_Click"/>
     </Grid>
-
 </Window>
