@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:XBeeControlElectricBulletinBoard"
         mc:Ignorable="d"
-        Title="電光掲示板コンソール" FontFamily="Meiryo UI" Height="606" Width="839" Background="#FF323232" Foreground="#FFE6E6E6" Loaded="Window_Loaded" >
+        Title="電光掲示板コンソール" FontFamily="Meiryo UI" Height="606" Width="839" Background="#FF323232" Foreground="#FFE6E6E6" Loaded="Window_Loaded" Icon="電光掲示板コンソール.png" >
     <Grid Background="#FF323232">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
